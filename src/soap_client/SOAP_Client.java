@@ -100,10 +100,12 @@ public class SOAP_Client {
         String modell = readString("Modell:");
         int baujahr = readInt("Baujahr:");
         
-        Car newCar = new Car(hersteller, modell, baujahr);
+        Car newCar = new Car();
+        newCar.setConstrutionYear(baujahr);
+        newCar.setModel(modell);
+        newCar.setProducer(hersteller);
         
         Holder<Car> car = new Holder<Car>(newCar);
-        
         
         ws.saveNewCar(car);
 
