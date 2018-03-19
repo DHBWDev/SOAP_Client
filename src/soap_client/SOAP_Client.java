@@ -3,14 +3,17 @@ package soap_client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
-import 
+import javax.xml.ws.Holder;
 
 
 public class SOAP_Client {
 
     public static void main(String[] args) throws IOException {
-
+        
+        
+        
         Boolean again = true;
 
         while (again) {
@@ -89,14 +92,42 @@ public class SOAP_Client {
     }
 
     public static void fahrzeugAnlegen() throws IOException {
+        
+        WebService_Service wsService = new WebService_Service();
+        WebService ws = wsService.getWebServicePort();
 
         String hersteller = readString("Hersteller:");
         String modell = readString("Modell:");
         int baujahr = readInt("Baujahr:");
+        
+        Car newCar = new Car(hersteller, modell, baujahr);
+        
+        Holder<Car> car = new Holder<Car>(newCar);
+        
+        
+        ws.saveNewCar(car);
 
     }
 
     public static void fahrzeugAusleihen() throws IOException {
+        
+        WebService_Service wsService = new WebService_Service();
+        WebService ws = wsService.getWebServicePort();
+        List<Car> cars = ws.findAll();
+        
+        System.out.println("Folgende Fahrzeuge stehen zur Verfügung:");
+        
+        for(Car car: cars){
+            
+            System.out.println(
+                    car.getModel() + ", " + 
+                    car.getProducer() + ", " +
+                    car.getConstrutionYear() + ", " +
+                    car.getId()
+            );
+
+        }
+        
 
         int kundennummer = readInt("Kundennummer:");
         String von = readString("Abholdatum (yyyy-mm-dd)");
@@ -106,8 +137,9 @@ public class SOAP_Client {
 
     public static void leihverträgeAuflisten() throws IOException {
         
-        Soap soap = new Soap();
-        MovieSoapWebservice movieWs = soap.getMovieSoapWebservicePort();
+        
+        
+        
 
         System.out.println("Hier könnte Ihre Werbung stehen...");
 
