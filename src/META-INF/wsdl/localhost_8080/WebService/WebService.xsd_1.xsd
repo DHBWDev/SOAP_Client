@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://web/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://web/">
+
+<xs:element name="findAll" type="tns:findAll"/>
+
+<xs:element name="findAllByCustomer" type="tns:findAllByCustomer"/>
+
+<xs:element name="findAllByCustomerResponse" type="tns:findAllByCustomerResponse"/>
+
+<xs:element name="findAllResponse" type="tns:findAllResponse"/>
+
+<xs:element name="saveNewCar" type="tns:saveNewCar"/>
+
+<xs:element name="saveNewCarResponse" type="tns:saveNewCarResponse"/>
+
+<xs:element name="saveNewCustomer" type="tns:saveNewCustomer"/>
+
+<xs:element name="saveNewCustomerResponse" type="tns:saveNewCustomerResponse"/>
+
+<xs:complexType name="saveNewCustomer">
+<xs:sequence>
+<xs:element name="customer" type="tns:customer" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="customer">
+<xs:sequence>
+<xs:element name="country" type="xs:string" minOccurs="0"/>
+<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+<xs:element name="houseNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="place" type="xs:string" minOccurs="0"/>
+<xs:element name="postCode" type="xs:string" minOccurs="0"/>
+<xs:element name="street" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveNewCustomerResponse">
+<xs:sequence>
+<xs:element name="customer" type="tns:customer" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllByCustomer">
+<xs:sequence>
+<xs:element name="arg0" type="tns:customer" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllByCustomerResponse">
+<xs:sequence>
+<xs:element name="contract" type="tns:contract" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="contract">
+<xs:sequence>
+<xs:element name="car" type="tns:car" minOccurs="0"/>
+<xs:element name="customer" type="tns:customer" minOccurs="0"/>
+<xs:element name="dueDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="startDate" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="car">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="model" type="xs:string" minOccurs="0"/>
+<xs:element name="producer" type="xs:string" minOccurs="0"/>
+<xs:element name="construtionYear" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveNewCar">
+<xs:sequence>
+<xs:element name="car" type="tns:car" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveNewCarResponse">
+<xs:sequence>
+<xs:element name="car" type="tns:car" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAll">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="findAllResponse">
+<xs:sequence>
+<xs:element name="car" type="tns:car" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -3,6 +3,9 @@ package soap_client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+import 
+
 
 public class SOAP_Client {
 
@@ -102,6 +105,9 @@ public class SOAP_Client {
     }
 
     public static void leihverträgeAuflisten() throws IOException {
+        
+        Soap soap = new Soap();
+        MovieSoapWebservice movieWs = soap.getMovieSoapWebservicePort();
 
         System.out.println("Hier könnte Ihre Werbung stehen...");
 
