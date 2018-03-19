@@ -4,6 +4,27 @@
 <xsd:import namespace="http://web/" schemaLocation="http://localhost:8080/WebService/WebService?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="findAllCars">
+<part name="parameters" element="tns:findAllCars"/>
+</message>
+<message name="findAllCarsResponse">
+<part name="parameters" element="tns:findAllCarsResponse"/>
+</message>
+<message name="findContractsByCustomerId">
+<part name="parameters" element="tns:findContractsByCustomerId"/>
+</message>
+<message name="findContractsByCustomerIdResponse">
+<part name="parameters" element="tns:findContractsByCustomerIdResponse"/>
+</message>
+<message name="saveNewContract">
+<part name="parameters" element="tns:saveNewContract"/>
+</message>
+<message name="saveNewContractResponse">
+<part name="parameters" element="tns:saveNewContractResponse"/>
+</message>
+<message name="CarIsNotAvailableException">
+<part name="fault" element="tns:CarIsNotAvailableException"/>
+</message>
 <message name="saveNewCustomer">
 <part name="parameters" element="tns:saveNewCustomer"/>
 </message>
@@ -16,19 +37,20 @@
 <message name="saveNewCarResponse">
 <part name="parameters" element="tns:saveNewCarResponse"/>
 </message>
-<message name="findAllByCustomer">
-<part name="parameters" element="tns:findAllByCustomer"/>
-</message>
-<message name="findAllByCustomerResponse">
-<part name="parameters" element="tns:findAllByCustomerResponse"/>
-</message>
-<message name="findAll">
-<part name="parameters" element="tns:findAll"/>
-</message>
-<message name="findAllResponse">
-<part name="parameters" element="tns:findAllResponse"/>
-</message>
 <portType name="WebService">
+<operation name="findAllCars">
+<input wsam:Action="http://web/WebService/findAllCarsRequest" message="tns:findAllCars"/>
+<output wsam:Action="http://web/WebService/findAllCarsResponse" message="tns:findAllCarsResponse"/>
+</operation>
+<operation name="findContractsByCustomerId">
+<input wsam:Action="http://web/WebService/findContractsByCustomerIdRequest" message="tns:findContractsByCustomerId"/>
+<output wsam:Action="http://web/WebService/findContractsByCustomerIdResponse" message="tns:findContractsByCustomerIdResponse"/>
+</operation>
+<operation name="saveNewContract">
+<input wsam:Action="http://web/WebService/saveNewContractRequest" message="tns:saveNewContract"/>
+<output wsam:Action="http://web/WebService/saveNewContractResponse" message="tns:saveNewContractResponse"/>
+<fault message="tns:CarIsNotAvailableException" name="CarIsNotAvailableException" wsam:Action="http://web/WebService/saveNewContract/Fault/CarIsNotAvailableException"/>
+</operation>
 <operation name="saveNewCustomer">
 <input wsam:Action="http://web/WebService/saveNewCustomerRequest" message="tns:saveNewCustomer"/>
 <output wsam:Action="http://web/WebService/saveNewCustomerResponse" message="tns:saveNewCustomerResponse"/>
@@ -37,17 +59,39 @@
 <input wsam:Action="http://web/WebService/saveNewCarRequest" message="tns:saveNewCar"/>
 <output wsam:Action="http://web/WebService/saveNewCarResponse" message="tns:saveNewCarResponse"/>
 </operation>
-<operation name="findAllByCustomer">
-<input wsam:Action="http://web/WebService/findAllByCustomerRequest" message="tns:findAllByCustomer"/>
-<output wsam:Action="http://web/WebService/findAllByCustomerResponse" message="tns:findAllByCustomerResponse"/>
-</operation>
-<operation name="findAll">
-<input wsam:Action="http://web/WebService/findAllRequest" message="tns:findAll"/>
-<output wsam:Action="http://web/WebService/findAllResponse" message="tns:findAllResponse"/>
-</operation>
 </portType>
 <binding name="WebServicePortBinding" type="tns:WebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="findAllCars">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="findContractsByCustomerId">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="saveNewContract">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="CarIsNotAvailableException">
+<soap:fault name="CarIsNotAvailableException" use="literal"/>
+</fault>
+</operation>
 <operation name="saveNewCustomer">
 <soap:operation soapAction=""/>
 <input>
@@ -58,24 +102,6 @@
 </output>
 </operation>
 <operation name="saveNewCar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="findAllByCustomer">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="findAll">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
