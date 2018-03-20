@@ -17,6 +17,10 @@ public class SOAP_Client {
 
     public static void main(String[] args) throws IOException, DatatypeConfigurationException {
         
+        System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
         
         
         Boolean again = true;
@@ -153,8 +157,8 @@ public class SOAP_Client {
         String bis = readString("Rückgabedatum (yyyy-mm-dd)");
         
         DatatypeFactory dtf = DatatypeFactory.newInstance();
-        XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar(von);
-        XMLGregorianCalendar endeTimeFrom = dtf.newXMLGregorianCalendar(bis);
+        XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar(von + "T00:00:00");
+        XMLGregorianCalendar endeTimeFrom = dtf.newXMLGregorianCalendar(bis+ "T23:59:59");
         
         try {
             ws.saveNewContract(startTimeFrom, endeTimeFrom, kundennummer, carId);
