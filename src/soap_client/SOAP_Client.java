@@ -18,7 +18,6 @@ public class SOAP_Client {
     public static void main(String[] args) throws IOException, DatatypeConfigurationException {
         
         
-        
         Boolean again = true;
 
         while (again) {
@@ -153,8 +152,8 @@ public class SOAP_Client {
         String bis = readString("Rückgabedatum (yyyy-mm-dd)");
         
         DatatypeFactory dtf = DatatypeFactory.newInstance();
-        XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar(von);
-        XMLGregorianCalendar endeTimeFrom = dtf.newXMLGregorianCalendar(bis);
+        XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar(von + "T00:00:00");
+        XMLGregorianCalendar endeTimeFrom = dtf.newXMLGregorianCalendar(bis+ "T23:59:59");
         
         
 
