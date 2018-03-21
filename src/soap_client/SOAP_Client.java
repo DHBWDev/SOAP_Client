@@ -156,6 +156,8 @@ public class SOAP_Client {
         XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar(von);
         XMLGregorianCalendar endeTimeFrom = dtf.newXMLGregorianCalendar(bis);
         
+        
+
         try {
             ws.saveNewContract(startTimeFrom, endeTimeFrom, kundennummer, carId);
         } catch (CarIsNotAvailableException_Exception ex) {
@@ -171,13 +173,23 @@ public class SOAP_Client {
         WebService ws = wsService.getWebServicePort();
         List<Contract> contracts = ws.findContractsByCustomerId(readLong("Kundennummer:"));
         
-        System.out.println("Folgende Fahrzeuge stehen zur Verfügung:");
+        System.out.println("Folgende Verträge wurden abgeschlossen:");
         
-        
-        
-        
+        for(Contract contract: contracts){
+            
+            System.out.println(
+                    
+                    "Nummer " + 
+                    contract.getId() + ": " +
+                    contract.getCar().getProducer() + " " + 
+                    contract.getCar().getModel() + " von " +
+                    contract.getStartDate() + " bis " +
+                    contract.getDueDate()
+                    
+                    
+            );
 
-        System.out.println("Hier könnte Ihre Werbung stehen...");
+        }
 
     }
 
