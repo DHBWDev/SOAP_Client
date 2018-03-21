@@ -7,7 +7,6 @@
       <local-wsdl-file>localhost_8080/WebService/WebService.wsdl</local-wsdl-file>
       <package-name forceReplace="true">soap_client</package-name>
       <catalog-file>catalog.xml</catalog-file>
-      <use-dispatch>true</use-dispatch>
       <wsimport-options>
         <wsimport-option>
           <wsimport-option-name>extension</wsimport-option-name>

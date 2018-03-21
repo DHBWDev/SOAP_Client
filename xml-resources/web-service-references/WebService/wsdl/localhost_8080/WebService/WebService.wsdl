@@ -4,12 +4,6 @@
 <xsd:import namespace="http://web/" schemaLocation="http://localhost:8080/WebService/WebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="saveNewCustomer">
-<part name="parameters" element="tns:saveNewCustomer"/>
-</message>
-<message name="saveNewCustomerResponse">
-<part name="parameters" element="tns:saveNewCustomerResponse"/>
-</message>
 <message name="saveNewCar">
 <part name="parameters" element="tns:saveNewCar"/>
 </message>
@@ -43,11 +37,13 @@
 <message name="sNewContractResponse">
 <part name="parameters" element="tns:sNewContractResponse"/>
 </message>
+<message name="saveNewCustomer">
+<part name="parameters" element="tns:saveNewCustomer"/>
+</message>
+<message name="saveNewCustomerResponse">
+<part name="parameters" element="tns:saveNewCustomerResponse"/>
+</message>
 <portType name="WebService">
-<operation name="saveNewCustomer">
-<input wsam:Action="http://web/WebService/saveNewCustomerRequest" message="tns:saveNewCustomer"/>
-<output wsam:Action="http://web/WebService/saveNewCustomerResponse" message="tns:saveNewCustomerResponse"/>
-</operation>
 <operation name="saveNewCar">
 <input wsam:Action="http://web/WebService/saveNewCarRequest" message="tns:saveNewCar"/>
 <output wsam:Action="http://web/WebService/saveNewCarResponse" message="tns:saveNewCarResponse"/>
@@ -70,18 +66,13 @@
 <output wsam:Action="http://web/WebService/sNewContractResponse" message="tns:sNewContractResponse"/>
 <fault message="tns:CarIsNotAvailableException" name="CarIsNotAvailableException" wsam:Action="http://web/WebService/sNewContract/Fault/CarIsNotAvailableException"/>
 </operation>
+<operation name="saveNewCustomer">
+<input wsam:Action="http://web/WebService/saveNewCustomerRequest" message="tns:saveNewCustomer"/>
+<output wsam:Action="http://web/WebService/saveNewCustomerResponse" message="tns:saveNewCustomerResponse"/>
+</operation>
 </portType>
 <binding name="WebServicePortBinding" type="tns:WebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="saveNewCustomer">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="saveNewCar">
 <soap:operation soapAction=""/>
 <input>
@@ -132,6 +123,15 @@
 <fault name="CarIsNotAvailableException">
 <soap:fault name="CarIsNotAvailableException" use="literal"/>
 </fault>
+</operation>
+<operation name="saveNewCustomer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="WebService">

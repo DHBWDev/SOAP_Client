@@ -12,12 +12,10 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Holder;
 
-
 public class SOAP_Client {
 
     public static void main(String[] args) throws IOException, DatatypeConfigurationException {
-        
-        
+
         Boolean again = true;
 
         while (again) {
@@ -84,7 +82,7 @@ public class SOAP_Client {
     }
 
     public static void kundeAnlegen() throws IOException {
-        
+
         WebService_Service wsService = new WebService_Service();
         WebService ws = wsService.getWebServicePort();
 
@@ -96,96 +94,130 @@ public class SOAP_Client {
         newCustomer.setPostCode(readString("Postleitzahl: "));
         newCustomer.setPlace(readString("Ort: "));
         newCustomer.setCountry(readString("Land: "));
-        
+
         Holder<Customer> customer = new Holder<Customer>(newCustomer);
-        
+
         ws.saveNewCustomer(customer);
-        
+
         System.out.println("Sie haben die Kundennummer: " + customer.value.getId());
-        
 
     }
 
     public static void fahrzeugAnlegen() throws IOException {
-        
+
         WebService_Service wsService = new WebService_Service();
         WebService ws = wsService.getWebServicePort();
 
         String hersteller = readString("Hersteller:");
         String modell = readString("Modell:");
         int baujahr = readInt("Baujahr:");
-        
+
         Car newCar = new Car();
         newCar.setConstrutionYear(baujahr);
         newCar.setModel(modell);
         newCar.setProducer(hersteller);
-        
+
         Holder<Car> car = new Holder<Car>(newCar);
-        
+
         ws.saveNewCar(car);
 
     }
 
-    public static void fahrzeugAusleihen() throws IOException, DatatypeConfigurationException{
-        
+    public static void fahrzeugAusleihen() throws IOException, DatatypeConfigurationException {
+
         WebService_Service wsService = new WebService_Service();
         WebService ws = wsService.getWebServicePort();
         List<Car> cars = ws.findAllCars();
-        
+
         System.out.println("Folgende Fahrzeuge stehen zur Verfügung:");
-        
-        for(Car car: cars){
-            
+
+        for (Car car : cars) {
+
             System.out.println(
-                    car.getModel() + ", " + 
-                    car.getProducer() + ", " +
-                    car.getConstrutionYear() + ", " +
-                    car.getId()
+                    car.getModel() + ", "
+                    + car.getProducer() + ", "
+                    + car.getConstrutionYear() + ", "
+                    + car.getId()
             );
 
         }
-        
 
         long kundennummer = readLong("Kundennummer:");
         long carId = readLong("FahrzeugID:");
-        String von = readString("Abholdatum (yyyy-mm-dd)");
-        String bis = readString("Rückgabedatum (yyyy-mm-dd)");
+
         
+
         DatatypeFactory dtf = DatatypeFactory.newInstance();
-        XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar(von + "T00:00:00");
-        XMLGregorianCalendar endeTimeFrom = dtf.newXMLGregorianCalendar(bis+ "T23:59:59");
+
+        boolean correct = true;
+        XMLGregorianCalendar startTimeFrom = null, endeTimeFrom = null;
+
+        while (correct) {
+            
+            correct = false;
+
+            try {
+                
+                String von = readString("Abholdatum (yyyy-mm-dd)");
+                startTimeFrom = dtf.newXMLGregorianCalendar(von + "T00:00:00");
+                
+            } catch (IllegalArgumentException ex) {
+                
+                System.out.println("Falsches Datumsformat! Bitte probieren Sie es nochmal.");
+                correct = true;
+
+            }
+
+        }
         
+        correct = true;
+        
+        while (correct) {
+            
+            correct = false;
+
+            try {
+                
+                String bis = readString("Rückgabedatum (yyyy-mm-dd)");
+                endeTimeFrom = dtf.newXMLGregorianCalendar(bis + "T23:59:59");
+                
+            } catch (IllegalArgumentException ex) {
+                
+                System.out.println("Falsches Datumsformat! Bitte probieren Sie es nochmal.");
+                correct = true;
+
+            }
+
+        }
+
         
 
         try {
             ws.saveNewContract(startTimeFrom, endeTimeFrom, kundennummer, carId);
-        } catch (CarIsNotAvailableException_Exception ex) {
-            
-            System.out.println("Fahrzeug ist nicht verfügbar");
+        } catch (Exception ex) {
+
+            System.out.println(ex.getMessage());
         }
 
     }
 
     public static void leihverträgeAuflisten() throws IOException {
-        
+
         WebService_Service wsService = new WebService_Service();
         WebService ws = wsService.getWebServicePort();
         List<Contract> contracts = ws.findContractsByCustomerId(readLong("Kundennummer:"));
-        
+
         System.out.println("Folgende Verträge wurden abgeschlossen:");
-        
-        for(Contract contract: contracts){
-            
+
+        for (Contract contract : contracts) {
+
             System.out.println(
-                    
-                    "Nummer " + 
-                    contract.getId() + ": " +
-                    contract.getCar().getProducer() + " " + 
-                    contract.getCar().getModel() + " von " +
-                    contract.getStartDate() + " bis " +
-                    contract.getDueDate()
-                    
-                    
+                    "Nummer "
+                    + contract.getId() + ": "
+                    + contract.getCar().getProducer() + " "
+                    + contract.getCar().getModel() + " von "
+                    + contract.getStartDate() + " bis "
+                    + contract.getDueDate()
             );
 
         }
@@ -224,7 +256,7 @@ public class SOAP_Client {
 
         return inint;
     }
-    
+
     public static int readInt(String anzeige) throws IOException {
 
         Boolean again = true;

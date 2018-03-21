@@ -88,18 +88,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="saveNewCustomer">
-<xs:sequence>
-<xs:element name="customer" type="tns:customer" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="saveNewCustomerResponse">
-<xs:sequence>
-<xs:element name="customer" type="tns:customer" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="findAllCars">
 <xs:sequence/>
 </xs:complexType>
@@ -122,6 +110,18 @@
 <xs:complexType name="saveNewContractResponse">
 <xs:sequence>
 <xs:element name="contract" type="tns:contract" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveNewCustomer">
+<xs:sequence>
+<xs:element name="customer" type="tns:customer" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveNewCustomerResponse">
+<xs:sequence>
+<xs:element name="customer" type="tns:customer" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
