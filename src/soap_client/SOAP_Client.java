@@ -3,10 +3,8 @@ package soap_client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -19,7 +17,7 @@ public class SOAP_Client {
         Boolean again = true;
 
         while (again) {
-
+            System.out.println();
             System.out.println("*********");
             System.out.println("Hauptmenü");
             System.out.println("*********");
@@ -29,7 +27,7 @@ public class SOAP_Client {
             System.out.println("[A] Fahrzeug ausleihen");
             System.out.println("[L] Leihverträge auflisten");
             System.out.println("[E] Ende");
-
+            System.out.println();
             String menuinstr = readString("Deine Auswahl: ");
 
             switch (menuinstr) {
@@ -87,6 +85,7 @@ public class SOAP_Client {
         WebService ws = wsService.getWebServicePort();
 
         Customer newCustomer = new Customer();
+        System.out.println();
         newCustomer.setFirstName(readString("Vorname: "));
         newCustomer.setName(readString("Nachname: "));
         newCustomer.setStreet(readString("Straße: "));
@@ -107,7 +106,7 @@ public class SOAP_Client {
 
         WebService_Service wsService = new WebService_Service();
         WebService ws = wsService.getWebServicePort();
-
+        System.out.println();
         String hersteller = readString("Hersteller:");
         String modell = readString("Modell:");
         int baujahr = readInt("Baujahr:");
@@ -128,7 +127,7 @@ public class SOAP_Client {
         WebService_Service wsService = new WebService_Service();
         WebService ws = wsService.getWebServicePort();
         List<Car> cars = ws.findAllCars();
-
+        System.out.println();
         System.out.println("Folgende Fahrzeuge stehen zur Verfügung:");
 
         for (Car car : cars) {
@@ -141,11 +140,9 @@ public class SOAP_Client {
             );
 
         }
-
+        System.out.println();
         long kundennummer = readLong("Kundennummer:");
         long carId = readLong("FahrzeugID:");
-
-        
 
         DatatypeFactory dtf = DatatypeFactory.newInstance();
 
@@ -153,44 +150,42 @@ public class SOAP_Client {
         XMLGregorianCalendar startTimeFrom = null, endeTimeFrom = null;
 
         while (correct) {
-            
+
             correct = false;
 
             try {
-                
+
                 String von = readString("Abholdatum (yyyy-mm-dd)");
                 startTimeFrom = dtf.newXMLGregorianCalendar(von + "T00:00:00");
-                
+
             } catch (IllegalArgumentException ex) {
-                
+
                 System.out.println("Falsches Datumsformat! Bitte probieren Sie es nochmal.");
                 correct = true;
 
             }
 
         }
-        
+
         correct = true;
-        
+
         while (correct) {
-            
+
             correct = false;
 
             try {
-                
+
                 String bis = readString("Rückgabedatum (yyyy-mm-dd)");
                 endeTimeFrom = dtf.newXMLGregorianCalendar(bis + "T23:59:59");
-                
+
             } catch (IllegalArgumentException ex) {
-                
+
                 System.out.println("Falsches Datumsformat! Bitte probieren Sie es nochmal.");
                 correct = true;
 
             }
 
         }
-
-        
 
         try {
             ws.saveNewContract(startTimeFrom, endeTimeFrom, kundennummer, carId);
@@ -203,23 +198,29 @@ public class SOAP_Client {
 
     public static void leihverträgeAuflisten() throws IOException {
 
+        SimpleDateFormat fmt = new SimpleDateFormat("dd.MM.yyyy");
         WebService_Service wsService = new WebService_Service();
         WebService ws = wsService.getWebServicePort();
-        List<Contract> contracts = ws.findContractsByCustomerId(readLong("Kundennummer:"));
+        System.out.println();
 
-        System.out.println("Folgende Verträge wurden abgeschlossen:");
+        try {
+            List<Contract> contracts = ws.findContractsByCustomerId(readLong("Kundennummer:"));
+            System.out.println("Folgende Verträge wurden abgeschlossen:");
 
-        for (Contract contract : contracts) {
+            for (Contract contract : contracts) {
 
-            System.out.println(
-                    "Nummer "
-                    + contract.getId() + ": "
-                    + contract.getCar().getProducer() + " "
-                    + contract.getCar().getModel() + " von "
-                    + contract.getStartDate() + " bis "
-                    + contract.getDueDate()
-            );
+                System.out.println(
+                        "Nummer "
+                        + contract.getId() + ": "
+                        + contract.getCar().getProducer() + " "
+                        + contract.getCar().getModel() + " von "
+                        + fmt.format(contract.getStartDate().toGregorianCalendar().getTime()) + " bis "
+                        + fmt.format(contract.getDueDate().toGregorianCalendar().getTime())
+                );
 
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -250,6 +251,7 @@ public class SOAP_Client {
                 inint = Long.parseLong(input);
             } catch (NumberFormatException e) {
                 again = true;
+                System.out.println();
                 System.out.println("Hoppla Sie haben sich wahrscheinlich vertippt... Probieren Sie's nochmal...");
             }
         }
@@ -274,6 +276,7 @@ public class SOAP_Client {
                 inint = Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 again = true;
+                System.out.println();
                 System.out.println("Hoppla Sie haben sich wahrscheinlich vertippt... Probieren Sie's nochmal...");
             }
         }

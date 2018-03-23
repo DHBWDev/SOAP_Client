@@ -2,6 +2,10 @@
 
 <xs:element name="CarIsNotAvailableException" type="tns:CarIsNotAvailableException"/>
 
+<xs:element name="CarNotFoundException" type="tns:CarNotFoundException"/>
+
+<xs:element name="CostumerNotFoundException" type="tns:CostumerNotFoundException"/>
+
 <xs:element name="findAllCars" type="tns:findAllCars"/>
 
 <xs:element name="findAllCarsResponse" type="tns:findAllCarsResponse"/>
@@ -9,10 +13,6 @@
 <xs:element name="findContractsByCustomerId" type="tns:findContractsByCustomerId"/>
 
 <xs:element name="findContractsByCustomerIdResponse" type="tns:findContractsByCustomerIdResponse"/>
-
-<xs:element name="sNewContract" type="tns:sNewContract"/>
-
-<xs:element name="sNewContractResponse" type="tns:sNewContractResponse"/>
 
 <xs:element name="saveNewCar" type="tns:saveNewCar"/>
 
@@ -70,31 +70,15 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="sNewContract">
+<xs:complexType name="saveNewCustomer">
 <xs:sequence>
-<xs:element name="contract" type="tns:contract" minOccurs="0"/>
+<xs:element name="customer" type="tns:customer" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="sNewContractResponse">
+<xs:complexType name="saveNewCustomerResponse">
 <xs:sequence>
-<xs:element name="contract" type="tns:contract" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="CarIsNotAvailableException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="findAllCars">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="findAllCarsResponse">
-<xs:sequence>
-<xs:element name="car" type="tns:car" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="customer" type="tns:customer" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -113,15 +97,31 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="saveNewCustomer">
+<xs:complexType name="CarIsNotAvailableException">
 <xs:sequence>
-<xs:element name="customer" type="tns:customer" minOccurs="0"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="saveNewCustomerResponse">
+<xs:complexType name="CarNotFoundException">
 <xs:sequence>
-<xs:element name="customer" type="tns:customer" minOccurs="0"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CostumerNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllCars">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="findAllCarsResponse">
+<xs:sequence>
+<xs:element name="car" type="tns:car" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
