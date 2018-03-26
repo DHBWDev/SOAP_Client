@@ -188,7 +188,11 @@ public class SOAP_Client {
         }
 
         try {
-            ws.saveNewContract(startTimeFrom, endeTimeFrom, kundennummer, carId);
+            Contract contract = ws.saveNewContract(startTimeFrom, endeTimeFrom, kundennummer, carId);
+            System.out.println();
+            System.out.println("Alles klar! Leihvertrag mit der ID " + contract.getId() + " wurde angelegt.");
+            System.out.println();
+
         } catch (Exception ex) {
 
             System.out.println(ex.getMessage());
